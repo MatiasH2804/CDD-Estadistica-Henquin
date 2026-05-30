@@ -1,0 +1,117 @@
+:root{
+  --bg:#eef6ff;
+  --panel:#fff;
+  --panel-2:#f7fbff;
+  --ink:#102033;
+  --muted:#5f7085;
+  --line:#c8dff5;
+  --blue:#0d6efd;
+  --blue-dark:#084298;
+  --cyan:#0ea5e9;
+  --green:#168a4a;
+  --amber:#b7791f;
+  --red:#c92a2a;
+  --red-strong:#991b1b;
+  --central:#73c6b6;
+  --shadow:0 14px 32px rgba(13,110,253,.10);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#eef6ff 0%,#fff 72%);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.45;
+}
+code{background:#eaf4ff;color:#063b73;padding:2px 6px;border-radius:7px;font-family:Consolas,Monaco,"Courier New",monospace}
+.app-shell{width:min(1280px,calc(100% - 28px));margin:24px auto 40px}
+.hero{display:flex;justify-content:space-between;gap:18px;align-items:stretch;background:linear-gradient(135deg,#fff 0%,#f0f8ff 100%);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin-bottom:18px}
+.eyebrow{margin:0 0 8px;color:var(--blue-dark);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+h1,h2{margin:0;letter-spacing:0}
+h1{font-size:clamp(30px,5vw,52px);color:var(--blue-dark)}
+h2{font-size:22px;color:var(--blue-dark)}
+.subtitle,.section-title p,.footer{color:var(--muted)}
+.subtitle{max-width:850px;margin:12px 0 0;font-size:16px}
+.hero-badge{min-width:150px;display:grid;place-items:center}
+.hero-badge span{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px;border-radius:999px;background:#e6f4ff;border:1px solid var(--line);color:var(--blue-dark);font-weight:800}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
+.section-title{margin-bottom:16px}
+.section-title p{margin:6px 0 0}
+.label{display:block;margin-bottom:8px;color:var(--blue-dark);font-weight:800}
+textarea{width:100%;min-height:110px;resize:vertical;border:1px solid #aacdea;border-radius:16px;padding:14px;background:#fbfdff;color:var(--ink);font:15px/1.45 Consolas,Monaco,"Courier New",monospace;outline:none}
+textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(13,110,253,.12)}
+.controls,.options{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.options{color:var(--muted);font-size:14px}
+button{border:0;border-radius:14px;padding:11px 15px;font-weight:800;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+button:hover{transform:translateY(-1px)}
+.primary{color:#fff;background:linear-gradient(135deg,var(--blue),#0ea5e9);box-shadow:0 8px 18px rgba(13,110,253,.25)}
+.secondary{color:var(--blue-dark);background:#e7f3ff;border:1px solid var(--line)}
+.ghost{color:var(--ink);background:#f4f7fb;border:1px solid #d6e5f4}
+.error-box{margin-top:14px;padding:12px 14px;border-radius:14px;border:1px solid #ffc9c9;background:#fff5f5;color:var(--red);font-weight:700}
+.hidden{display:none!important}
+.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat-card{min-height:142px;padding:16px;background:linear-gradient(180deg,#fff,#f8fbff);border:1px solid #d5e8fb;border-radius:18px}
+.stat-card .label-mini{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.stat-card .value{display:block;margin-top:8px;color:var(--blue-dark);font-size:30px;font-weight:900;letter-spacing:0}
+.stat-card .why{margin:8px 0 0;color:var(--muted);font-size:13px}
+.interpretation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.interpret-card{padding:16px;border-radius:18px;border:1px solid #d5e8fb;background:var(--panel-2)}
+.interpret-card strong{color:var(--blue-dark)}
+.interpret-card p{margin:8px 0 0;color:var(--muted)}
+.visual-stack{display:grid;gap:18px;margin-bottom:18px}
+.visual-heading{padding:2px 4px 0;margin-bottom:0}
+.chart-card-large{padding:24px}
+.chart-card canvas{width:100%;max-width:100%;height:auto;display:block;background:linear-gradient(180deg,#fbfdff,#f7fbff);border:1px solid #d8e9f8;border-radius:18px}
+.chart-card-large canvas{min-height:330px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:8px;margin:-4px 0 12px}
+.legend-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid #d8e9f8;border-radius:999px;background:#fff;color:var(--muted);font-size:13px;font-weight:800}
+.legend-swatch{width:12px;height:12px;border-radius:999px;border:2px solid currentColor;background:currentColor}
+.legend-media{color:var(--red)}
+.legend-mediana{color:var(--green)}
+.legend-q1{color:var(--cyan)}
+.legend-q3{color:var(--amber)}
+.legend-outlier{color:var(--red-strong)}
+.legend-central{color:var(--central)}
+.legend-frecuencia{color:var(--blue)}
+.chart-note{margin:12px 2px 0;color:var(--muted);font-size:14px}
+.chart-note strong{color:var(--blue-dark)}
+.table-wrap,.concept-table-wrap,.casio-table-wrap{overflow-x:auto;border:1px solid #d8e9f8;border-radius:18px}
+table{width:100%;border-collapse:collapse;min-width:850px}
+th{text-align:left;color:#fff;background:var(--blue-dark);padding:12px 14px;font-size:14px}
+td{padding:12px 14px;border-bottom:1px solid #e0effc;font-size:14px;vertical-align:top}
+tr:nth-child(even) td{background:#f7fbff}
+.casio-panel{border-color:#9fcdf7;background:linear-gradient(180deg,#fff 0%,#f4faff 100%)}
+.casio-table{min-width:1120px}
+.casio-table th{background:linear-gradient(135deg,var(--blue-dark),#0b5ed7)}
+.casio-table td:first-child{font-size:18px;font-weight:900;color:var(--blue-dark);white-space:nowrap}
+.formula-cell,.calculation-cell{font-family:Consolas,Monaco,"Courier New",monospace;color:#19324d}
+.result-cell{font-size:18px;font-weight:900;color:var(--green);white-space:nowrap}
+.casio-interpretation-card{margin-top:16px;padding:18px;border:1px solid #b8dcfb;border-radius:18px;background:#f7fbff}
+.casio-interpretation-card h3{margin:0 0 10px;color:var(--blue-dark);font-size:20px}
+.casio-interpretation-card p{margin:8px 0 0;color:var(--muted)}
+.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:900}
+.badge.low{color:#075985;background:#e0f2fe}
+.badge.mid{color:#166534;background:#dcfce7}
+.badge.high{color:#92400e;background:#fef3c7}
+.badge.outlier{color:#991b1b;background:#fee2e2}
+.footer{text-align:center;padding:12px;font-size:13px}
+@media (max-width:980px){
+  .hero{flex-direction:column}
+  .hero-badge{place-items:start}
+  .summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .interpretation-grid{grid-template-columns:1fr}
+  .chart-card-large{padding:18px}
+  .chart-card-large canvas{min-height:300px}
+}
+@media (max-width:580px){
+  .app-shell{width:min(100% - 18px,1280px);margin-top:12px}
+  .panel,.hero{padding:16px;border-radius:16px}
+  .summary-grid{grid-template-columns:1fr}
+  .controls button{width:100%}
+  .casio-interpretation-card{padding:14px}
+  .chart-card-large{padding:14px}
+  .chart-card-large canvas{min-height:260px}
+  .legend-pill{font-size:12px;padding:5px 8px}
+}

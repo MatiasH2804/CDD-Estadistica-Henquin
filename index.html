@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analizador Estadístico Visual</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]] },
+      svg: { fontCache: "global" }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Ciencia de Datos · Estadística descriptiva</p>
+        <h1>Analizador Estadístico Visual</h1>
+        <a 
+  href="https://matiash2804.github.io/Cuadro-comparativo-del-c-digo-media-mediana-rango-cuartiles-e-IQR/" 
+  target="_blank"
+  style="display:inline-block; padding:10px 16px; background:#0d6efd; color:white; text-decoration:none; border-radius:8px; font-weight:bold;"
+>
+  Ver cuadro comparativo
+</a>
+        <p class="subtitle">
+          Pegá una lista tipo Python, por ejemplo <code>[1, 2, 3, 4, 20]</code>, y la app calcula medidas de centro,
+          dispersión, cuartiles, outliers y gráficos con explicación.
+        </p>
+      </div>
+      <div class="hero-badge"><span id="statusBadge">Listo</span></div>
+    </header>
+
+    <section class="panel input-panel">
+      <div class="section-title">
+        <h2>1. Cargar datos</h2>
+        <p>Solo números. Admite enteros, decimales, negativos, espacios y saltos de línea.</p>
+      </div>
+      <label for="dataInput" class="label">Lista de datos</label>
+      <textarea id="dataInput" spellcheck="false">[1, 2, 2, 3, 3, 4, 4, 5, 6, 8, 20]</textarea>
+      <div class="controls">
+        <button id="analyzeBtn" class="primary">Analizar lista</button>
+        <button id="exampleStudyBtn" class="secondary">Ejemplo estudio</button>
+        <button id="exampleIncomeBtn" class="secondary">Ejemplo ingresos</button>
+        <button id="clearBtn" class="ghost">Limpiar</button>
+      </div>
+      <div class="options">
+        <label><input type="checkbox" id="showPopulation" checked /> Mostrar varianza/desvío poblacional</label>
+        <label><input type="checkbox" id="showSample" checked /> Mostrar varianza/desvío muestral</label>
+      </div>
+      <div id="errorBox" class="error-box hidden"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>2. Resumen numérico</h2>
+        <p>Medidas principales calculadas con el método visto en clase: ordenar datos, mediana y cuartiles por mitades.</p>
+      </div>
+      <div id="summaryGrid" class="summary-grid"></div>
+    </section>
+
+    <section class="panel casio-panel">
+      <div class="section-title">
+        <h2>Qué significa cada valor de la calculadora Casio</h2>
+        <p>Valores de estadística de una variable calculados con la lista actual y explicados paso a paso.</p>
+      </div>
+      <div id="casioTableWrap" class="casio-table-wrap"></div>
+      <article id="casioInterpretationCard" class="casio-interpretation-card"></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>3. Lectura rápida de la distribución</h2>
+        <p>Interpretación automática de centro, dispersión, asimetría y valores atípicos.</p>
+      </div>
+      <div id="interpretationGrid" class="interpretation-grid"></div>
+    </section>
+
+    <section class="visual-stack">
+      <div class="section-title visual-heading">
+        <h2>Visualización completa de la lista actual</h2>
+        <p>Gráficos grandes para leer concentración, cuartiles, valores repetidos, saltos y outliers.</p>
+      </div>
+
+      <article class="panel chart-card chart-card-large">
+        <div class="section-title"><h2>4. Histograma</h2><p>Permite ver dónde se concentran los datos.</p></div>
+        <div class="chart-legend" data-kind="histogram"></div>
+        <canvas id="histogramCanvas" width="1200" height="500"></canvas>
+        <p id="histogramNote" class="chart-note"></p>
+      </article>
+
+      <article class="panel chart-card chart-card-large">
+        <div class="section-title"><h2>5. Diagrama de caja</h2><p>Muestra mínimo, Q1, mediana, Q3, máximo, límites y outliers.</p></div>
+        <div class="chart-legend" data-kind="boxplot"></div>
+        <canvas id="boxplotCanvas" width="1200" height="390"></canvas>
+        <p id="boxplotNote" class="chart-note"></p>
+      </article>
+
+      <article class="panel chart-card chart-card-large">
+        <div class="section-title"><h2>6. Gráfico de puntos</h2><p>Cada punto representa un dato real de la lista.</p></div>
+        <div class="chart-legend" data-kind="dotplot"></div>
+        <canvas id="dotplotCanvas" width="1200" height="390"></canvas>
+        <p id="dotplotNote" class="chart-note"></p>
+      </article>
+
+      <article class="panel chart-card chart-card-large">
+        <div class="section-title"><h2>7. Barras de frecuencias</h2><p>Muestra cuántas veces aparece cada valor único.</p></div>
+        <div class="chart-legend" data-kind="frequency"></div>
+        <canvas id="frequencyCanvas" width="1200" height="430"></canvas>
+        <p id="frequencyNote" class="chart-note"></p>
+      </article>
+
+      <article class="panel chart-card chart-card-large">
+        <div class="section-title"><h2>8. Línea de datos ordenados</h2><p>Ayuda a ver saltos grandes y cambios entre valores consecutivos.</p></div>
+        <div class="chart-legend" data-kind="ordered"></div>
+        <canvas id="orderedLineCanvas" width="1200" height="430"></canvas>
+        <p id="orderedLineNote" class="chart-note"></p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-title"><h2>9. Tabla de valores</h2><p>Cada dato clasificado según su posición respecto de Q1, Q3 y límites de outliers.</p></div>
+      <div id="dataTableWrap" class="table-wrap"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title"><h2>10. Qué significa cada medida</h2><p>Resumen conceptual para estudiar o justificar respuestas.</p></div>
+      <div class="concept-table-wrap">
+        <table class="concept-table">
+          <thead><tr><th>Medida</th><th>Qué responde</th><th>Cómo se calcula</th><th>Interpretación</th></tr></thead>
+          <tbody>
+            <tr><td>Media</td><td>¿Cuál es el promedio general?</td><td>Suma de datos / cantidad</td><td>Usa todos los datos, pero se deforma con valores extremos.</td></tr>
+            <tr><td>Mediana / Q2</td><td>¿Cuál es el valor central?</td><td>Dato del medio si n es impar; promedio de dos centrales si n es par.</td><td>Representa mejor el centro cuando hay outliers.</td></tr>
+            <tr><td>Q1</td><td>¿Dónde queda el primer 25%?</td><td>Mediana de la mitad inferior.</td><td>Aproximadamente el 25% de los datos queda por debajo.</td></tr>
+            <tr><td>Q3</td><td>¿Dónde queda el primer 75%?</td><td>Mediana de la mitad superior.</td><td>Aproximadamente el 75% de los datos queda por debajo.</td></tr>
+            <tr><td>IQR</td><td>¿Cuánto se dispersa el 50% central?</td><td>Q3 - Q1</td><td>Sirve para medir dispersión sin depender tanto de extremos.</td></tr>
+            <tr><td>Rango</td><td>¿Qué distancia hay entre extremos?</td><td>Máximo - mínimo</td><td>Muy sensible a valores extremos.</td></tr>
+            <tr><td>Desvío estándar</td><td>¿Cuánto se alejan los datos de la media?</td><td>Raíz cuadrada de la varianza.</td><td>Mayor desvío = datos más dispersos respecto del promedio.</td></tr>
+            <tr><td>Outliers</td><td>¿Hay valores atípicos?</td><td>Menores que Q1 - 1.5·IQR o mayores que Q3 + 1.5·IQR.</td><td>Son valores que se alejan mucho del centro de la distribución.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="footer"><span>App offline en HTML + CSS + JS. No usa librerías externas.</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
